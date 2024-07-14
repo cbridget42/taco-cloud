@@ -1,6 +1,7 @@
 package com.sia.tacocloud.controller;
 
 import com.sia.tacocloud.repository.IngredientRepository;
+import com.sia.tacocloud.repository.OrderRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -20,6 +21,8 @@ public class HomeTest {
     private MockMvc mockMvc;
     @MockBean
     private IngredientRepository mockIngredientRepo;
+    @MockBean
+    private OrderRepository orderRepository;
 
     @Test
     public void testHomePage() throws Exception {

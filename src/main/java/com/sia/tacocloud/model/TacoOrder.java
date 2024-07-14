@@ -3,6 +3,7 @@ package com.sia.tacocloud.model;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 import org.hibernate.validator.constraints.CreditCardNumber;
 
@@ -23,8 +24,10 @@ public class TacoOrder {
     @NotBlank
     private String deliveryCity;
     @NotBlank
+    @Size(max = 2, message = "State must not be more than 2 characters long")
     private String deliveryState;
     @NotBlank
+    @Size(max = 10, message = "Zip must not be more than 10 characters long")
     private String deliveryZip;
     @CreditCardNumber(message = "Not a valid credit card number")
     private String ccNumber;

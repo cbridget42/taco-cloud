@@ -25,7 +25,7 @@ public class JdbcOrderRepository implements OrderRepository {
     private static final String CREATE_TACO = "INSERT INTO taco (name, created_at, taco_order, taco_order_key) " + "VALUES (?,?,?,?)";
     private static final String CREATE_INGREDIENT_REF = "INSERT INTO ingredient_ref " + "(ingredient, taco, taco_key) VALUES (?,?,?)";
 
-    private JdbcOperations jdbcOperations;
+    private final JdbcOperations jdbcOperations;
 
     @Override
     @Transactional
@@ -69,7 +69,7 @@ public class JdbcOrderRepository implements OrderRepository {
     private void saveIngredientRefs(Long tacoId, List<Ingredient> ingredients) {
         int key = 0;
         for (Ingredient ingredient : ingredients) {
-            jdbcOperations.update(CREATE_INGREDIENT_REF, ingredient.getType().name(), tacoId, key);
+            jdbcOperations.update(CREATE_INGREDIENT_REF, ingredient.getId(), tacoId, key++);
         }
     }
 }
