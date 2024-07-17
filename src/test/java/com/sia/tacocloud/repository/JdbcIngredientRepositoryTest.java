@@ -7,6 +7,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @SpringBootTest
 public class JdbcIngredientRepositoryTest {
 
@@ -15,7 +18,7 @@ public class JdbcIngredientRepositoryTest {
 
     @Test
     public void ingredientRepositorySaveTest() {
-        Ingredient ingredient = new Ingredient("TEST", "Test ingredient", Type.WRAP);
+        Ingredient ingredient = new Ingredient("TEST", "Test ingredient", Type.WRAP, true);
         ingredientRepository.save(ingredient);
         Ingredient result = ingredientRepository.findById("TEST").orElse(null);
 
@@ -29,6 +32,8 @@ public class JdbcIngredientRepositoryTest {
         var result = ingredientRepository.findAll();
 
         Assertions.assertNotNull(result);
-        Assertions.assertEquals(10, result.size());
+        List<Ingredient> listResult = new ArrayList<>();
+        result.forEach(listResult::add);
+        Assertions.assertEquals(10, listResult.size());
     }
 }
