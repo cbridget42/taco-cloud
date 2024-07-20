@@ -36,4 +36,12 @@ public class JdbcIngredientRepositoryTest {
         result.forEach(listResult::add);
         Assertions.assertEquals(10, listResult.size());
     }
+
+    @Test
+    public void ingredientRepositoryFindByIdTest() {
+        var result = ingredientRepository.findById("TMTO").orElse(null);
+
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals("Diced Tomatoes", result.getName());
+    }
 }
