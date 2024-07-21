@@ -35,7 +35,6 @@ public class OrderController {
             return "orderForm";
         }
 
-        order.setPlacedAt(new Date());
         orderRepository.save(order);
         log.info("Order submitted: {}", order);
         sessionStatus.setComplete();

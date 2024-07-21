@@ -18,7 +18,7 @@ public class JdbcIngredientRepositoryTest {
 
     @Test
     public void ingredientRepositorySaveTest() {
-        Ingredient ingredient = new Ingredient("TEST", "Test ingredient", Type.WRAP, true);
+        Ingredient ingredient = new Ingredient("TEST", "Test ingredient", Type.WRAP);
         ingredientRepository.save(ingredient);
         Ingredient result = ingredientRepository.findById("TEST").orElse(null);
 

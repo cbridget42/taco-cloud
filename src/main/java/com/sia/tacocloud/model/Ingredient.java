@@ -1,32 +1,21 @@
 package com.sia.tacocloud.model;
 
-import lombok.AccessLevel;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.Transient;
-import org.springframework.data.domain.Persistable;
-import org.springframework.data.relational.core.mapping.Column;
-import org.springframework.data.relational.core.mapping.Table;
 
 @Data
-@Table
+@Entity
+@NoArgsConstructor
 @AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-public class Ingredient implements Persistable<String> {
+public class Ingredient {
 
     @Id
     private String id;
     private String name;
     private Type type;
-    @Transient
-    private Boolean isNew;
-
-    @Override
-    public boolean isNew() {
-        return isNew;
-    }
 
     public enum Type {
         WRAP,

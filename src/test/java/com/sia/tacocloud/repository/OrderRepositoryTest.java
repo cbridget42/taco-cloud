@@ -1,6 +1,6 @@
 package com.sia.tacocloud.repository;
 
-import com.sia.tacocloud.model.IngredientRef;
+import com.sia.tacocloud.model.Ingredient;
 import com.sia.tacocloud.model.Taco;
 import com.sia.tacocloud.model.TacoOrder;
 import org.junit.jupiter.api.Assertions;
@@ -8,13 +8,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
 public class OrderRepositoryTest {
 
     public static final String KEK = "kek";
+    public static final String CC_CVV = "333";
+    public static final String CC_EXPIRATION = "11/22";
+    public static final String CC_NUMBER = "5555555555554444";
+    public static final String DELIVERY_STATE = "DS";
+    public static final String TACO_NAME = "tacoName";
 
     @Autowired
     private OrderRepository orderRepository;
@@ -22,10 +26,10 @@ public class OrderRepositoryTest {
     @Test
     public void orderRepositorySaveTest() {
         Taco taco = new Taco();
-        taco.setCreatedAt(new Date());
-        taco.setName(KEK);
-        IngredientRef ingredientRef = new IngredientRef("FLTO");
-        taco.setIngredients(List.of(ingredientRef));
+        taco.setName(TACO_NAME);
+        Ingredient ingredient = new Ingredient();
+        ingredient.setId("FLTO");
+        taco.setIngredients(List.of(ingredient));
 
         TacoOrder tacoOrder = createTacoOrder(taco);
         Long id = orderRepository.save(tacoOrder).getId();
@@ -39,19 +43,18 @@ public class OrderRepositoryTest {
                 .findFirst()
                 .orElse(null);
         Assertions.assertNotNull(resultTaco);
-        Assertions.assertEquals(KEK, resultTaco.getName());
+        Assertions.assertEquals(TACO_NAME, resultTaco.getName());
     }
 
     private TacoOrder createTacoOrder(Taco taco) {
         TacoOrder tacoOrder = new TacoOrder();
 
-        tacoOrder.setPlacedAt(new Date());
-        tacoOrder.setCcCVV(KEK);
-        tacoOrder.setCcExpiration(KEK);
-        tacoOrder.setCcNumber(KEK);
+        tacoOrder.setCcCVV(CC_CVV);
+        tacoOrder.setCcExpiration(CC_EXPIRATION);
+        tacoOrder.setCcNumber(CC_NUMBER);
         tacoOrder.setDeliveryName(KEK);
         tacoOrder.setDeliveryCity(KEK);
-        tacoOrder.setDeliveryState("lo");
+        tacoOrder.setDeliveryState(DELIVERY_STATE);
         tacoOrder.setDeliveryStreet(KEK);
         tacoOrder.setDeliveryZip(KEK);
         tacoOrder.addTaco(taco);
