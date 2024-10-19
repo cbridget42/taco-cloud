@@ -1,7 +1,7 @@
 CREATE SCHEMA IF NOT EXISTS taco_cloud;
 
 CREATE TABLE IF NOT EXISTS taco_cloud.taco_order (
-    id serial,
+    id serial unique,
     delivery_name varchar(50) not null,
     delivery_street varchar(50) not null,
     delivery_city varchar(50) not null,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS taco_cloud.taco_order (
 );
 
 CREATE TABLE IF NOT EXISTS taco_cloud.taco (
-    id serial,
+    id serial unique,
     name varchar(50) not null,
     taco_order bigint not null,
     taco_order_key bigint not null,
@@ -23,8 +23,7 @@ CREATE TABLE IF NOT EXISTS taco_cloud.taco (
 
 CREATE TABLE IF NOT EXISTS taco_cloud.ingredient_ref (
     ingredient varchar(4) not null,
-    taco bigint not null,
-    taco_key bigint not null
+    taco bigint not null
 );
 
 CREATE TABLE IF NOT EXISTS taco_cloud.ingredient (

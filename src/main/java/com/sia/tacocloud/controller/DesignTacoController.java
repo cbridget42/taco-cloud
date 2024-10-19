@@ -1,8 +1,8 @@
 package com.sia.tacocloud.controller;
 
-import com.sia.tacocloud.model.Ingredient;
-import com.sia.tacocloud.model.Taco;
-import com.sia.tacocloud.model.TacoOrder;
+import com.sia.tacocloud.entity.Ingredient;
+import com.sia.tacocloud.entity.Taco;
+import com.sia.tacocloud.entity.TacoOrder;
 import com.sia.tacocloud.repository.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sia.tacocloud.model.Ingredient.Type;
+import static com.sia.tacocloud.entity.Ingredient.Type;
 
 @Slf4j
 @Controller
@@ -62,6 +62,8 @@ public class DesignTacoController {
             return "design";
         }
 
+        taco.setTacoOrderKey((long) (tacoOrder.getTacos().size() + 1));
+        taco.setTacoOrder(tacoOrder);
         tacoOrder.addTaco(taco);
         log.info("Processing taco: {}", taco);
 

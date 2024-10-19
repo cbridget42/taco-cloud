@@ -7,9 +7,15 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: qwerty
+    driver-class-name: org.postgresql.Driver
   sql:
     init:
       mode: always
-#  jpa:
-#    hibernate:
-#      ddl-auto: none
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#logging:
+#  level:
+#    org:
+#      springframework:
+#        web: ERROR
+#      hibernate: DEBUG

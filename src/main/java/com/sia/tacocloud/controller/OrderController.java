@@ -1,6 +1,6 @@
 package com.sia.tacocloud.controller;
 
-import com.sia.tacocloud.model.TacoOrder;
+import com.sia.tacocloud.entity.TacoOrder;
 import com.sia.tacocloud.repository.OrderRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
-
-import java.util.Date;
 
 @Slf4j
 @Controller

@@ -1,8 +1,9 @@
 package com.sia.tacocloud.repository;
 
-import com.sia.tacocloud.model.Ingredient;
-import com.sia.tacocloud.model.Taco;
-import com.sia.tacocloud.model.TacoOrder;
+import com.sia.tacocloud.entity.Ingredient;
+import com.sia.tacocloud.entity.Taco;
+import com.sia.tacocloud.entity.TacoOrder;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ public class OrderRepositoryTest {
     private OrderRepository orderRepository;
 
     @Test
+    @Transactional
     public void orderRepositorySaveTest() {
         Taco taco = new Taco();
         taco.setName(TACO_NAME);
@@ -49,7 +51,7 @@ public class OrderRepositoryTest {
     private TacoOrder createTacoOrder(Taco taco) {
         TacoOrder tacoOrder = new TacoOrder();
 
-        tacoOrder.setCcCVV(CC_CVV);
+        tacoOrder.setCcCvv(CC_CVV);
         tacoOrder.setCcExpiration(CC_EXPIRATION);
         tacoOrder.setCcNumber(CC_NUMBER);
         tacoOrder.setDeliveryName(KEK);

@@ -1,6 +1,6 @@
 package com.sia.tacocloud.converter;
 
-import com.sia.tacocloud.model.Ingredient;
+import com.sia.tacocloud.entity.Ingredient;
 import com.sia.tacocloud.repository.IngredientRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.convert.converter.Converter;

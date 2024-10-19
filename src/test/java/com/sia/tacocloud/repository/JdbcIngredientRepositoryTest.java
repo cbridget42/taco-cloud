@@ -1,7 +1,7 @@
 package com.sia.tacocloud.repository;
 
-import com.sia.tacocloud.model.Ingredient;
-import com.sia.tacocloud.model.Ingredient.Type;
+import com.sia.tacocloud.entity.Ingredient;
+import com.sia.tacocloud.entity.Ingredient.Type;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Collections.emptyList;
 
 @SpringBootTest
 public class JdbcIngredientRepositoryTest {
@@ -18,7 +20,7 @@ public class JdbcIngredientRepositoryTest {
 
     @Test
     public void ingredientRepositorySaveTest() {
-        Ingredient ingredient = new Ingredient("TEST", "Test ingredient", Type.WRAP);
+        Ingredient ingredient = new Ingredient("TEST", "Test ingredient", Type.WRAP, emptyList());
         ingredientRepository.save(ingredient);
         Ingredient result = ingredientRepository.findById("TEST").orElse(null);
 
