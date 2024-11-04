@@ -2,11 +2,14 @@ package com.sia.tacocloud.controller;
 
 import com.sia.tacocloud.repository.IngredientRepository;
 import com.sia.tacocloud.repository.OrderRepository;
+import com.sia.tacocloud.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
@@ -18,6 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
 @WebMvcTest
+@AutoConfigureMockMvc(addFilters = false)
 public class DesignTacoControllerTest {
 
     @Autowired
@@ -26,6 +30,10 @@ public class DesignTacoControllerTest {
     private IngredientRepository mockIngredientRepo;
     @MockBean
     private OrderRepository mockOrderRepository;
+    @MockBean
+    private UserRepository userRepository;
+    @MockBean
+    private PasswordEncoder passwordEncoder;
 
     @Test
     public void testShowDesignForm() throws Exception {

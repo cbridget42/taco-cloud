@@ -32,5 +32,17 @@ CREATE TABLE IF NOT EXISTS taco_cloud.ingredient (
     type varchar(10) not null
 );
 
+CREATE TABLE IF NOT EXISTS taco_cloud.taco_user (
+    id bigint primary key not null,
+    username varchar(50) not null,
+    password varchar(150) not null,
+    full_name varchar(50) not null,
+    street varchar(30) not null,
+    city varchar(30) not null,
+    state varchar(2) not null,
+    zip varchar(10) not null,
+    phone varchar(20) not null
+);
+
 ALTER TABLE taco_cloud.taco ADD FOREIGN KEY (taco_order) REFERENCES taco_cloud.taco_order(id);
 ALTER TABLE taco_cloud.ingredient_ref ADD FOREIGN KEY (ingredient) REFERENCES taco_cloud.ingredient(id);
