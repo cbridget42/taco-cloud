@@ -18,6 +18,7 @@ public class RegistrationForm {
 
     public TacoUser toUser(PasswordEncoder passwordEncoder) {
         return new TacoUser(
+                null,
                 this.username,
                 passwordEncoder.encode(this.password),
                 this.fullName,

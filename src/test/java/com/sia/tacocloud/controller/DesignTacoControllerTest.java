@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.Matchers.containsString;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -37,7 +38,8 @@ public class DesignTacoControllerTest {
 
     @Test
     public void testShowDesignForm() throws Exception {
-        mockMvc.perform(get("/design"))
+        mockMvc.perform(get("/design")
+                        .with(csrf()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("design"))
                 .andExpect(content().string(containsString("Design your taco!")))

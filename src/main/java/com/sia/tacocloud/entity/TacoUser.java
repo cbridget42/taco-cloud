@@ -5,11 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,25 +17,24 @@ import java.util.Collection;
 
 @Data
 @Entity
-@Table(schema = "taco_cloud")
-@NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
+@Table(schema = "taco_cloud", name = "taco_user")
+@NoArgsConstructor
 @AllArgsConstructor
-@RequiredArgsConstructor
 public class TacoUser implements UserDetails {
 
     private static final long serialVersionUid = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private final String username;
-    private final String password;
-    private final String fullName;
-    private final String street;
-    private final String city;
-    private final String state;
-    private final String zip;
-    private final String phone;
+    private String username;
+    private String password;
+    private String fullName;
+    private String street;
+    private String city;
+    private String state;
+    private String zip;
+    private String phone;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

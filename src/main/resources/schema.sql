@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS taco_cloud.ingredient (
 );
 
 CREATE TABLE IF NOT EXISTS taco_cloud.taco_user (
-    id bigint primary key not null,
+    id serial unique,
     username varchar(50) not null,
     password varchar(150) not null,
     full_name varchar(50) not null,
