@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
@@ -57,6 +59,9 @@ public class TacoOrder implements Serializable {
     @Size(min = 1, message = "You must choose at least 1 ingredient")
     @OneToMany(mappedBy = "tacoOrder", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Taco> tacos = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "taco_user")
+    private TacoUser tacoUser;
 
     public void addTaco(Taco taco) {
         this.tacos.add(taco);

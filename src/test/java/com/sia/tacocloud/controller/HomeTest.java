@@ -3,6 +3,7 @@ package com.sia.tacocloud.controller;
 import com.sia.tacocloud.repository.IngredientRepository;
 import com.sia.tacocloud.repository.OrderRepository;
 import com.sia.tacocloud.repository.UserRepository;
+import com.sia.tacocloud.service.AdminService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -31,6 +32,8 @@ public class HomeTest {
     private UserRepository userRepository;
     @MockitoBean
     private PasswordEncoder passwordEncoder;
+    @MockitoBean
+    private AdminService adminService;
 
     @Test
     public void testHomePage() throws Exception {

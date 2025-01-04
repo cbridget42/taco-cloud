@@ -48,7 +48,7 @@ public class OrderRepositoryTest {
         Assertions.assertEquals(TACO_NAME, resultTaco.getName());
     }
 
-    private TacoOrder createTacoOrder(Taco taco) {
+    public static TacoOrder createTacoOrder(Taco taco) {
         TacoOrder tacoOrder = new TacoOrder();
 
         tacoOrder.setCcCvv(CC_CVV);

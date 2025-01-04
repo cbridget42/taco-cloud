@@ -3,6 +3,7 @@ package com.sia.tacocloud.config;
 import com.sia.tacocloud.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,6 +15,7 @@ import static java.lang.String.format;
 import static java.util.Optional.ofNullable;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfig {
 
     public static final String DESIGN_ENDPOINT = "/design";

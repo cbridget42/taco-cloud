@@ -1,10 +1,12 @@
 package com.sia.tacocloud.controller;
 
 import com.sia.tacocloud.entity.TacoOrder;
+import com.sia.tacocloud.entity.TacoUser;
 import com.sia.tacocloud.repository.OrderRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,11 +30,15 @@ public class OrderController {
     }
 
     @PostMapping
-    public String processOrder(@Valid TacoOrder order, Errors errors, SessionStatus sessionStatus) {
+    public String processOrder(@Valid TacoOrder order,
+                               Errors errors,
+                               SessionStatus sessionStatus,
+                               @AuthenticationPrincipal TacoUser tacoUser) {
         if (errors.hasErrors()) {
             return "orderForm";
         }
 
+        order.setTacoUser(tacoUser);
         orderRepository.save(order);
         log.info("Order submitted: {}", order);
         sessionStatus.setComplete();

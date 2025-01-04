@@ -3,10 +3,12 @@ package com.sia.tacocloud.controller;
 import com.sia.tacocloud.entity.Ingredient;
 import com.sia.tacocloud.entity.Taco;
 import com.sia.tacocloud.entity.TacoOrder;
+import com.sia.tacocloud.entity.TacoUser;
 import com.sia.tacocloud.repository.IngredientRepository;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.sia.tacocloud.entity.Ingredient.Type;
+import static java.util.Objects.nonNull;
 
 @Slf4j
 @Controller
@@ -52,7 +55,15 @@ public class DesignTacoController {
     }
 
     @GetMapping
-    public String showDesignForm() {
+    public String showDesignForm(@ModelAttribute TacoOrder tacoOrder,
+                                 @AuthenticationPrincipal TacoUser tacoUser) {
+        if (nonNull(tacoUser)) {
+            tacoOrder.setDeliveryName(tacoUser.getFullName());
+            tacoOrder.setDeliveryStreet(tacoUser.getStreet());
+            tacoOrder.setDeliveryCity(tacoUser.getCity());
+            tacoOrder.setDeliveryState(tacoUser.getState());
+            tacoOrder.setDeliveryZip(tacoUser.getZip());
+        }
         return "design";
     }
 
