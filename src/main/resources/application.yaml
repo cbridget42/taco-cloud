@@ -7,15 +7,27 @@ spring:
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: qwerty
-    driver-class-name: org.postgresql.Driver
+  #    driver-class-name: org.postgresql.Driver
   sql:
     init:
       mode: always
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 6969
+  ssl:
+    key-store: 'classpath:keys/mykeys.jks'
+    key-store-password: qwerty
+    key-password: qwerty
+
 #logging:
 #  level:
 #    org:
 #      springframework:
 #        web: ERROR
 #      hibernate: DEBUG
+
+taco:
+  orders:
+    page-size: 10

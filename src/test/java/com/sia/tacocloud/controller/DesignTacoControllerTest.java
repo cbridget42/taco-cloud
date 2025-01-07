@@ -1,5 +1,6 @@
 package com.sia.tacocloud.controller;
 
+import com.sia.tacocloud.config.properties.OrderProperties;
 import com.sia.tacocloud.repository.IngredientRepository;
 import com.sia.tacocloud.repository.OrderRepository;
 import com.sia.tacocloud.repository.UserRepository;
@@ -38,6 +39,8 @@ public class DesignTacoControllerTest {
     private PasswordEncoder passwordEncoder;
     @MockitoBean
     private AdminService adminService;
+    @MockitoBean
+    private OrderProperties orderProperties;
 
     @Test
     public void testShowDesignForm() throws Exception {
