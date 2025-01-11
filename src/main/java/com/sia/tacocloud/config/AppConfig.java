@@ -6,6 +6,7 @@ import com.sia.tacocloud.repository.IngredientRepository;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 
 import static java.util.Collections.emptyList;
 
@@ -13,6 +14,7 @@ import static java.util.Collections.emptyList;
 public class AppConfig {
 
     @Bean
+    @Profile("!prod")
     public ApplicationRunner dataLoader(IngredientRepository repository) {
         return args -> {
             repository.save(new Ingredient("FLTO", "Flour Tortilla", Type.WRAP, emptyList()));
