@@ -1,5 +1,7 @@
 package com.sia.tacocloud.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,6 +14,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -22,6 +25,7 @@ import java.util.Optional;
 
 @Getter
 @Setter
+@Builder
 @Entity
 @Table(schema = "taco_cloud")
 @NoArgsConstructor
@@ -39,6 +43,7 @@ public class Taco {
 
     @ManyToOne
     @JoinColumn(name = "taco_order")
+    @JsonIgnore
     private TacoOrder tacoOrder;
 
     @ManyToMany
@@ -48,6 +53,7 @@ public class Taco {
             joinColumns = @JoinColumn(name = "taco"),
             inverseJoinColumns = @JoinColumn(name = "ingredient")
     )
+    @JsonManagedReference
     private List<Ingredient> ingredients;
 
     public void addIngredient(Ingredient ingredient) {
