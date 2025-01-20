@@ -1,6 +1,9 @@
 package com.sia.tacocloud.controller;
 
+import com.sia.tacocloud.dto.IngredientDto;
+import com.sia.tacocloud.dto.TacoDto;
 import com.sia.tacocloud.entity.Taco;
+import com.sia.tacocloud.mapper.IngredientsMapper;
 import com.sia.tacocloud.repository.OrderRepository;
 import com.sia.tacocloud.repository.TacoRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class TacoController {
 
     private final TacoRepository tacoRepository;
     private final OrderRepository orderRepository;
+    private final IngredientsMapper ingredientsMapper;
 
     @GetMapping(params = "recent")
     public Iterable<Taco> recentTaco() {
@@ -41,7 +45,14 @@ public class TacoController {
 
     @PostMapping(path = "/save", consumes = "application/json;charset=UTF-8")
     @ResponseStatus(HttpStatus.CREATED)
-    public void saveTaco(@RequestBody Taco taco) {
+    public void saveTaco(@RequestBody TacoDto tacoDto) {
+        var taco = new Taco();
+        taco.setName(tacoDto.getName());
+        for (IngredientDto ingredientDto : tacoDto.getIngredients()) {
+            var ingredient = ingredientsMapper.mapToIngredient(ingredientDto);
+            ingredient.addTaco(taco);
+            taco.addIngredient(ingredient);
+        }
         taco.setTacoOrder(orderRepository.findById(0L)
                 .orElseThrow(() -> new NoSuchElementException("tech order not found")));
         taco.setTacoOrderKey(0L);

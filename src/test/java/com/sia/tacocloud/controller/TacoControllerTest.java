@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -18,6 +19,7 @@ import static com.sia.tacocloud.repository.OrderRepositoryTest.TACO_NAME;
 import static com.sia.tacocloud.repository.OrderRepositoryTest.createTacoOrder;
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -25,6 +27,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class TacoControllerTest {
+
+    public static final String TACO_SAVE_REQUEST = """
+            {
+                "name": "test1",
+                "ingredients": [
+                    {
+                        "id": "CARN",
+                        "name": "Carnitas",
+                        "type": "PROTEIN"
+                    }
+                ]
+            }
+            """;
 
     @Autowired
     private MockMvc mockMvc;
@@ -69,10 +84,12 @@ public class TacoControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-//    @Test
-//    public void saveTaco() throws Exception {
-//        mockMvc.perform(post("/api/tacos/save"))
-//                .andExpect(status().isCreated());
-//    }
-// TODO finish this
+    @Test
+    public void saveTaco() throws Exception {
+        mockMvc.perform(post("/api/tacos/save")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(TACO_SAVE_REQUEST))
+                .andExpect(status().isInternalServerError())
+                .andExpect(content().string(containsString("tech order not found")));
+    }
 }

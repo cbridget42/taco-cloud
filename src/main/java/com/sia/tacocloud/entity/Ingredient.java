@@ -12,7 +12,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.Objects.isNull;
 
 @Data
 @Builder
@@ -30,7 +33,7 @@ public class Ingredient {
 
     @ManyToMany(mappedBy = "ingredients")
     @JsonBackReference
-    private List<Taco> tacos;
+    private List<Taco> tacos = new ArrayList<>();
 
     public enum Type {
         WRAP,
@@ -38,6 +41,13 @@ public class Ingredient {
         VEGGIES,
         CHEESE,
         SAUCE
+    }
+
+    public void addTaco(Taco taco) {
+        if (isNull(this.tacos)) {
+            this.tacos = new ArrayList<>();
+        }
+        this.tacos.add(taco);
     }
 
     @Override
