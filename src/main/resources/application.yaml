@@ -12,6 +12,9 @@ spring:
       mode: always
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    rest:
+      base-path: /data-api
 
 server:
   port: 6969

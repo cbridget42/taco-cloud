@@ -1,0 +1,16 @@
+package com.sia.tacocloud.dto;
+
+import lombok.Data;
+
+@Data
+public class TacoOrderDto {
+
+    private String deliveryName;
+    private String deliveryStreet;
+    private String deliveryCity;
+    private String deliveryState;
+    private String deliveryZip;
+    private String ccNumber;
+    private String ccExpiration;
+    private String ccCvv;
+}

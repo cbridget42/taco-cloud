@@ -39,7 +39,7 @@ public class SecurityConfig {
                         .requestMatchers(DESIGN_ENDPOINT, ORDERS_ENDPOINT).hasRole("USER")
                         .requestMatchers("/", "/**").permitAll()
                 )
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/tacos/save"))
+                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/tacos/*"))
                 .formLogin(form -> form
                         .loginPage("/login")
                         .defaultSuccessUrl(DESIGN_ENDPOINT))

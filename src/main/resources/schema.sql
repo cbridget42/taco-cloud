@@ -45,6 +45,6 @@ CREATE TABLE IF NOT EXISTS taco_cloud.taco_user (
     phone varchar(20) not null
 );
 
-ALTER TABLE taco_cloud.taco ADD FOREIGN KEY (taco_order) REFERENCES taco_cloud.taco_order(id);
+ALTER TABLE taco_cloud.taco ADD FOREIGN KEY (taco_order) REFERENCES taco_cloud.taco_order(id) ON DELETE CASCADE;
 ALTER TABLE taco_cloud.ingredient_ref ADD FOREIGN KEY (ingredient) REFERENCES taco_cloud.ingredient(id);
 ALTER TABLE taco_cloud.taco_order ADD FOREIGN KEY (taco_user) REFERENCES taco_cloud.taco_user(id);

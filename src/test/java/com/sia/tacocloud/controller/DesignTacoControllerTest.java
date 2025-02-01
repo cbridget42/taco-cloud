@@ -2,6 +2,7 @@ package com.sia.tacocloud.controller;
 
 import com.sia.tacocloud.config.properties.OrderProperties;
 import com.sia.tacocloud.mapper.IngredientsMapper;
+import com.sia.tacocloud.mapper.TacoOrderMapper;
 import com.sia.tacocloud.repository.IngredientRepository;
 import com.sia.tacocloud.repository.OrderRepository;
 import com.sia.tacocloud.repository.TacoRepository;
@@ -47,6 +48,8 @@ public class DesignTacoControllerTest {
     private TacoRepository tacoRepository;
     @MockitoBean
     private IngredientsMapper ingredientsMapper;
+    @MockitoBean
+    private TacoOrderMapper tacoOrderMapper;
 
     @Test
     public void testShowDesignForm() throws Exception {

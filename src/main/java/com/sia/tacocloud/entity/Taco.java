@@ -18,6 +18,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ import java.util.Optional;
 @Table(schema = "taco_cloud")
 @NoArgsConstructor
 @AllArgsConstructor
+@RestResource(rel = "tacos", path = "tacos")
 public class Taco {
 
     @Id
