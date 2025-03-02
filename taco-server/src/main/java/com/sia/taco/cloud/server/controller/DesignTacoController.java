@@ -1,0 +1,93 @@
+package com.sia.taco.cloud.server.controller;
+
+import com.sia.taco.cloud.api.entity.Ingredient;
+import com.sia.taco.cloud.api.entity.Taco;
+import com.sia.taco.cloud.api.entity.TacoOrder;
+import com.sia.taco.cloud.api.entity.TacoUser;
+import com.sia.taco.cloud.server.repository.IngredientRepository;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.sia.taco.cloud.api.entity.Ingredient.Type;
+import static java.util.Objects.nonNull;
+
+@Slf4j
+@Controller
+@RequestMapping("/design")
+@SessionAttributes("tacoOrder")
+@RequiredArgsConstructor
+public class DesignTacoController {
+
+    private final IngredientRepository ingredientRepository;
+
+    @ModelAttribute
+    public void addIngredientsToModel(Model model) {
+        Iterable<Ingredient> ingredients = ingredientRepository.findAll();
+
+        Type[] types = Type.values();
+        for (Type type : types) {
+            model.addAttribute(type.toString().toLowerCase(),
+                    filterByType(ingredients, type));
+        }
+    }
+
+    @ModelAttribute(name = "tacoOrder")
+    public TacoOrder order() {
+        return new TacoOrder();
+    }
+
+    @ModelAttribute(name = "taco")
+    public Taco taco() {
+        return new Taco();
+    }
+
+    @GetMapping
+    public String showDesignForm(@ModelAttribute TacoOrder tacoOrder,
+                                 @AuthenticationPrincipal TacoUser tacoUser) {
+        if (nonNull(tacoUser)) {
+            tacoOrder.setDeliveryName(tacoUser.getFullName());
+            tacoOrder.setDeliveryStreet(tacoUser.getStreet());
+            tacoOrder.setDeliveryCity(tacoUser.getCity());
+            tacoOrder.setDeliveryState(tacoUser.getState());
+            tacoOrder.setDeliveryZip(tacoUser.getZip());
+        }
+        return "design";
+    }
+
+    @PostMapping
+    public String processTaco(@Valid Taco taco, Errors errors, @ModelAttribute TacoOrder tacoOrder) {
+        if (errors.hasErrors()) {
+            return "design";
+        }
+
+        taco.setTacoOrderKey((long) (tacoOrder.getTacos().size() + 1));
+        taco.setTacoOrder(tacoOrder);
+        tacoOrder.addTaco(taco);
+        log.info("Processing taco: {}", taco);
+
+        return "redirect:/orders/current";
+    }
+
+    private Iterable<Ingredient> filterByType(Iterable<Ingredient> ingredients, Type type) {
+        List<Ingredient> result = new ArrayList<>();
+        ingredients.forEach(ingredient -> {
+            if (ingredient.getType().equals(type)) {
+                result.add(ingredient);
+            }
+        });
+        return result;
+    }
+}

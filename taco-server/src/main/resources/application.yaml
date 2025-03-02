@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: taco-server
+  datasource:
+    generate-unique-name: false
+    name: tacocloud
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: qwerty
+  sql:
+    init:
+      mode: always
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  data:
+    rest:
+      base-path: /data-api
+
+server:
+  port: 6969
+  ssl:
+    key-store: 'classpath:keys/mykeys.jks'
+    key-store-password: qwerty
+    key-password: qwerty
+
+logging:
+  level:
+    org.springframework: DEBUG
+
+taco:
+  orders:
+    page-size: 10
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    org.springframework: INFO

@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: taco-client
+
+#logging:
+#  level:
+#    org.springframework: DEBUG
