@@ -1,6 +1,7 @@
 package com.sia.taco.cloud.client.client;
 
 import com.sia.taco.cloud.api.dto.IngredientDto;
+import com.sia.taco.cloud.client.parser.CommonParser;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +11,15 @@ import org.springframework.web.client.RestTemplate;
 import java.time.Instant;
 import java.time.ZoneId;
 
+import static java.util.Objects.nonNull;
+
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class RestTacoClient {
 
     private final RestTemplate restTemplate;
+    private final CommonParser commonParser;
 
     public IngredientDto getIngredientById(String ingredientId) {
         ResponseEntity<IngredientDto> responseEntity =
@@ -31,9 +35,14 @@ public class RestTacoClient {
     public IngredientDto createIngredient(IngredientDto ingredient) {
         var responseEntity = restTemplate.postForEntity("https://localhost:6969/api/ingredients/save",
                 ingredient,
-                IngredientDto.class);//todo залогировать сырой json
+                String.class);
 
-        log.info("New ingredient created {}", responseEntity.getBody());
-        return responseEntity.getBody();
+        var bodyRs = responseEntity.getBody();
+        log.info("response received from /api/ingredients/save with body: {}", bodyRs);
+        var response = commonParser.parse(IngredientDto.class, bodyRs);
+        if (nonNull(response)) {
+            log.info("New ingredient created {}", response);
+        }
+        return response;
     }
 }
