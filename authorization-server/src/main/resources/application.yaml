@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: authorization-server
+  datasource:
+    generate-unique-name: false
+    name: tacocloud
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: qwerty
+  sql:
+    init:
+      mode: never
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 9000

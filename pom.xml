@@ -19,6 +19,7 @@
         <module>taco-server</module>
         <module>taco-client</module>
         <module>taco-entity</module>
+        <module>authorization-server</module>
     </modules>
 
 </project>
