@@ -15,3 +15,23 @@ spring:
 
 server:
   port: 9000
+
+
+#http://localhost:9000/oauth2/authorize?
+#  response_type=code&
+#  client_id=taco-admin-client&
+#  redirect_uri=http://127.0.0.1:9090/login/oauth2/code/taco-admin-client&
+#  scope=writeIngredients+deleteIngredients
+#
+#curl -Uri "http://localhost:9000/oauth2/token" `
+#  -H "Content-Type: application/x-www-form-urlencoded" `
+#  -u "taco-admin-client:secret" `
+#  -d "grant_type=refresh_token" `
+#  -d "refresh_token=43CDV8r2Nva6pkc8zN_cYjD_zBBVXw0ofgaBodpPH9JOtCcNjw7UwO8A1p64ipwPq3mu6-Krk4wHXvhX30V3y6kcdiIAkuW7icR33BboIUaDFGZ-jcVc9sE7nbrRtHEd"
+#
+#curl -Uri "http://localhost:9000/oauth2/token" `
+#     -H "Content-type: application/x-www-form-urlencoded" `
+#     -d "grant_type=authorization_code" `
+#     -d "redirect_uri=http://127.0.0.1:9090/login/oauth2/code/taco-admin-client" `
+#     -d "code=Kfj5pVX8oBUvYFIYdI0Kdfu2hUKBZOVFCB_-Nw06fcXynL0OdaI0NSStI87DRYDLDA1k1ioBsBOXqDdwFQ7Za5Yfcwsq4jPNGBEd4XYU0mvE1W_Dqd7Ng2rsN8Fcr8Cp" `
+#     -u "taco-admin-client:secret"

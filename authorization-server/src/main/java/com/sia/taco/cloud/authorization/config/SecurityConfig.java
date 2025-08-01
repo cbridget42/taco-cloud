@@ -21,9 +21,6 @@ import static java.util.Optional.ofNullable;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    public static final String DESIGN_ENDPOINT = "/design";
-    public static final String ORDERS_ENDPOINT = "/orders";
-
     @Bean
     @Order(1)
     public SecurityFilterChain authorizationServerSecurityFilterChain(HttpSecurity http)
@@ -49,15 +46,9 @@ public class SecurityConfig {
         return http
                 .securityMatcher("/**")
                 .authorizeHttpRequests(authorize -> authorize
-                                .anyRequest().authenticated()
-//                        authz -> authz
-//                        .requestMatchers(DESIGN_ENDPOINT, ORDERS_ENDPOINT).hasRole("USER")
-//                        .requestMatchers("/", "/**").permitAll()
-                )
-                .csrf(csrf -> csrf.ignoringRequestMatchers("/api/tacos/*", "/api/ingredients/*"))
+                                .anyRequest().authenticated())
                 .formLogin(form -> form
-                        .loginPage("/login")
-                        .defaultSuccessUrl(DESIGN_ENDPOINT))
+                        .loginPage("/login"))
                 .logout(logout -> logout.logoutSuccessUrl("/"))
                 .build();
     }
