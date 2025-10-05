@@ -24,13 +24,14 @@ public class ClientConfig {
                 .clientSecret(passwordEncoder.encode("secret"))
                 .clientAuthenticationMethod(ClientAuthenticationMethod.CLIENT_SECRET_BASIC)
                 .authorizationGrantType(AuthorizationGrantType.AUTHORIZATION_CODE)
+                .authorizationGrantType(AuthorizationGrantType.CLIENT_CREDENTIALS)
                 .authorizationGrantType(AuthorizationGrantType.REFRESH_TOKEN)
                 .redirectUri("http://127.0.0.1:9090/login/oauth2/code/taco-admin-client")
                 .scope("writeIngredients")
                 .scope("deleteIngredients")
                 .scope(OidcScopes.OPENID)
                 .clientSettings(ClientSettings.builder()
-                        .requireAuthorizationConsent(true)
+                        .requireAuthorizationConsent(false)
                         .build())
                 .build();
 

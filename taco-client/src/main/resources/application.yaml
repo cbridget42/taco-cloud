@@ -1,6 +1,19 @@
 spring:
   application:
     name: taco-client
+  security:
+    oauth2:
+      client:
+        registration:
+          taco-admin-client:
+            provider: tacocloud
+            client-id: taco-admin-client
+            client-secret: secret
+            authorization-grant-type: client_credentials
+            scope: writeIngredients,deleteIngredients,openid
+        provider:
+          tacocloud:
+            issuer-uri: http://localhost:9000
 
 #logging:
 #  level:

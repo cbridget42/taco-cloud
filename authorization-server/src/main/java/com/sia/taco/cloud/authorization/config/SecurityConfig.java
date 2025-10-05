@@ -35,6 +35,15 @@ public class SecurityConfig {
                         "/login/**",
                         "/.well-known/**"
                 )
+                .csrf(csrf -> csrf.ignoringRequestMatchers(
+                        "/oauth2/token",
+                        "/oauth2/introspect",
+                        "/oauth2/revoke"
+                ))
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/oauth2/token").permitAll()
+                        .anyRequest().authenticated()
+                )
                 .formLogin(Customizer.withDefaults())
                 .build();
     }

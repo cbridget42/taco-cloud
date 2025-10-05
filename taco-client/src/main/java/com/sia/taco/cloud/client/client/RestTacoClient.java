@@ -45,4 +45,8 @@ public class RestTacoClient {
         }
         return response;
     }
+
+    public void deleteIngredient(String ingredientId) {
+        restTemplate.delete("https://localhost:6969/api/ingredients/delete/" + ingredientId);
+    }
 }

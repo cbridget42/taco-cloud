@@ -7,8 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class TacoClientApplication {
 
     public static void main(String[] args) {
-        var ctx = SpringApplication.run(TacoClientApplication.class, args);
-
-        System.exit(SpringApplication.exit(ctx, () -> 0));
+        SpringApplication.run(TacoClientApplication.class, args);
     }
 }
